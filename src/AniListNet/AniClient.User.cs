@@ -1,4 +1,5 @@
-﻿using AniListNet.Helpers;
+﻿using System.Net;
+using AniListNet.Helpers;
 using AniListNet.Objects;
 using AniListNet.Parameters;
 
@@ -42,6 +43,29 @@ public partial class AniClient
             GqlParser.ParseFromJson<PageInfo>(response["Page"]["pageInfo"]),
             GqlParser.ParseFromJson<User[]>(response["Page"]["following"])
         );
+    }
+
+    public async Task<MediaEntry?> GetUserMediaEntryForMedia(int userId, int mediaId, CancellationToken ct = default)
+    {
+        var selections = new GqlSelection("MediaList", GqlParser.ParseToSelections<MediaEntry>(), [
+            new GqlParameter("userId", userId),
+            new GqlParameter("mediaId", mediaId)
+        ]);
+
+        try
+        {
+            var response = await PostRequestAsync(selections, cancellationToken: ct);
+
+            var entry = response["MediaList"];
+            return entry == null ? null : GqlParser.ParseFromJson<MediaEntry>(entry);
+        }
+        catch (AniException aniException)
+        {
+            if (aniException.StatusCode == HttpStatusCode.NotFound)
+                return null;
+
+            throw;
+        }
     }
 
     public async Task<AniPagination<MediaEntry>> GetUserEntriesAsync(int userId, MediaEntryFilter? filter = null,

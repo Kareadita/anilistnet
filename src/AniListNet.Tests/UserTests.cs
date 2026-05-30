@@ -94,4 +94,18 @@ public class UserTests
         Console.WriteLine(ObjectDumper.Dump(data));
         Assert.Pass(); // TODO: Add proper assertions
     }
+
+    [Test]
+    public async Task GetUserMediaEntryForMedia()
+    {
+        // Amelia, The Blue Star on That Day
+        var data = await _client.GetUserMediaEntryForMedia(7261496, 127894);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.That(data is not null);
+        Assert.That(data.Score == 10);
+
+        var fakeId = await _client.GetUserMediaEntryForMedia(7261496, 1111111111);
+        Assert.That(fakeId is null);
+
+    }
 }
