@@ -68,6 +68,29 @@ public partial class AniClient
         }
     }
 
+    public async Task<MediaReview?> GetUserReviewForMedia(int userId, int mediaId, CancellationToken ct = default)
+    {
+        var selections = new GqlSelection("Review", GqlParser.ParseToSelections<MediaReview>(), [
+            new GqlParameter("userId", userId),
+            new GqlParameter("mediaId", mediaId)
+        ]);
+
+        try
+        {
+            var response = await PostRequestAsync(selections, cancellationToken: ct);
+
+            var review = response["Review"];
+            return review == null ? null : GqlParser.ParseFromJson<MediaReview>(review);
+        }
+        catch (AniException aniException)
+        {
+            if (aniException.StatusCode == HttpStatusCode.NotFound)
+                return null;
+
+            throw;
+        }
+    }
+
     public async Task<AniPagination<MediaEntry>> GetUserEntriesAsync(int userId, MediaEntryFilter? filter = null,
         AniPaginationOptions? paginationOptions = null)
     {

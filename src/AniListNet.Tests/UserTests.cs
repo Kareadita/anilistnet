@@ -106,6 +106,17 @@ public class UserTests
 
         var fakeId = await _client.GetUserMediaEntryForMedia(7261496, 1111111111);
         Assert.That(fakeId is null);
+    }
 
+    [Test]
+    public async Task GetUserReviewForMedia()
+    {
+        // loryuris, The Blue Star on That Day
+        var data = await _client.GetUserReviewForMedia(7092751, 127894);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.That(data is not null);
+
+        var fakeId = await _client.GetUserReviewForMedia(7092751, 1111111111);
+        Assert.That(fakeId is null);
     }
 }
