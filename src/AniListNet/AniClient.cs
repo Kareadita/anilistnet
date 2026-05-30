@@ -2,6 +2,7 @@
 using System.Net.Http.Headers;
 using System.Text;
 using AniListNet.Helpers;
+using AniListNet.Objects;
 using Newtonsoft.Json.Linq;
 
 namespace AniListNet;
@@ -12,23 +13,32 @@ public partial class AniClient
     private readonly Uri _url = new("https://graphql.anilist.co");
 
     public bool IsAuthenticated { get; private set; }
+    public User? AuthenticatedUser { get; private set; }
 
     public event EventHandler<AniRateEventArgs>? RateChanged;
 
+    /// <summary>
+    /// Sets the authentication header, and loads <see cref="AuthenticatedUser"/> if successful.
+    /// Exceptions other than <see cref="HttpStatusCode.Unauthorized"/> are rethrown.
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
     public async Task<bool> TryAuthenticateAsync(string token)
     {
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         try
         {
-            _ = await GetAuthenticatedUserAsync();
+            AuthenticatedUser = await GetAuthenticatedUserAsync();
             IsAuthenticated = true;
         }
         catch (AniException aniException)
         {
             if (aniException.StatusCode != HttpStatusCode.Unauthorized)
                 throw;
+
             _client.DefaultRequestHeaders.Authorization = null;
             IsAuthenticated = false;
+            AuthenticatedUser = null;
         }
 
         return IsAuthenticated;
