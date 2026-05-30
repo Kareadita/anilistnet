@@ -34,7 +34,7 @@ public partial class AniClient
         return IsAuthenticated;
     }
 
-    private async Task<JToken> PostRequestAsync(GqlSelection selection, bool isMutation = false)
+    private async Task<JToken> PostRequestAsync(GqlSelection selection, bool isMutation = false, CancellationToken cancellationToken = default)
     {
         // Build selection
         var bodyJson = JObject.FromObject(new { query = (isMutation ? "mutation" : string.Empty) + selection });
@@ -42,7 +42,7 @@ public partial class AniClient
         var body = new StringContent(bodyJson.ToString(), Encoding.UTF8, "application/json");
 
         // Send request
-        var response = await _client.PostAsync(_url, body);
+        var response = await _client.PostAsync(_url, body, cancellationToken);
 
         // Parse response
         var responseText = await response.Content.ReadAsStringAsync();
