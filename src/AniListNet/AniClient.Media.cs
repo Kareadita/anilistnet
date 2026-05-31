@@ -169,6 +169,12 @@ public partial class AniClient
         );
     }
 
+    /// <summary>
+    /// Returns the <see cref="MediaEntry"/> for the currently authenticated user. Or null if not found
+    /// </summary>
+    /// <param name="mediaId"></param>
+    /// <returns></returns>
+    /// <exception cref="AniException"></exception>
     public async Task<MediaEntry?> GetMediaEntryAsync(int mediaId)
     {
         if (!IsAuthenticated)
