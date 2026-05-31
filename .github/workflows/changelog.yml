@@ -1,0 +1,53 @@
+name: Update Changelog
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  update-changelog:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Append to CHANGELOG.md
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const pr = context.payload.pull_request;
+
+            if (!pr.body || !pr.body.trim()) {
+              core.info('PR body is empty, skipping changelog update.');
+              core.setOutput('updated', 'false');
+              return;
+            }
+
+            const date = new Date().toISOString().split('T')[0];
+
+            const entry = [
+              `## [${pr.title}] - ${date}`,
+              `_PR #${pr.number} by @${pr.user.login}_`,
+              ``,
+              pr.body,
+              ``,
+              `---`,
+              ``
+            ].join('\n');
+
+            const path = 'CHANGELOG.md';
+            const existing = fs.existsSync(path) ? fs.readFileSync(path, 'utf8') : '';
+            fs.writeFileSync(path, entry + existing);
+
+      - name: Commit changelog
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          git commit -m "Update changelog for PR #${{ github.event.pull_request.number }}"
+          git push

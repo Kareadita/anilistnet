@@ -6,7 +6,7 @@
 [![NuGet Version](https://img.shields.io/nuget/v/Kavita.AniListNet?logo=nuget)](https://nuget.org/packages/Kavita.AniListNet)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Kavita.AniListNet)](https://nuget.org/packages/Kavita.AniListNet)
 
-> [!info]
+> **Note**:
 > This project is a maintained fork of https://github.com/dentolos19/anilistnet
 
 This project is designed to bring you a simpler way to access and interact with the AniList API. For more information
@@ -24,25 +24,9 @@ about the API itself, visit the [AniList Docs](https://docs.anilist.co).
 - [x] Get user details like followers, entries, collections, and favorites!
 - [x] Update a user's followings, entries and favorites easily!
 
-## 🧑‍💻 Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-### Prerequisites
-
-- [.NET](https://dot.net) 10+
-
-### Installation
-
-1. Clone the repo: `git clone https://github.com/dentolos19/anilistnet.git`
-2. Get your API key, learn how by [clicking here](https://github.com/dentolos19/anilistnet/wiki/Tutorials#authenticating-with-anilist).
-3. Use the template `.env.template` and create a file named `.env` inside the project `AniListNet.Tests` and enter your key.
-4. Restore dependencies: `dotnet restore` (optional)
-5. Test the library: `dotnet test` or use the built-in tests runner in your IDE (recommended)
-
 ## 💖 Credits
 
-- Many thanks to dentolos19 for the original project.
+- Many thanks to @dentolos19 for the original project.
 - **Icon** from [AniList](https://anilist.co), edited by me.
 
 ## 📜 License
