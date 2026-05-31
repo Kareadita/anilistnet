@@ -59,12 +59,9 @@ public partial class AniClient
             var entry = response["MediaList"];
             return entry == null ? null : GqlParser.ParseFromJson<MediaEntry>(entry);
         }
-        catch (AniException aniException)
+        catch (AniException aniException) when (aniException.StatusCode == HttpStatusCode.NotFound)
         {
-            if (aniException.StatusCode == HttpStatusCode.NotFound)
-                return null;
-
-            throw;
+            return null;
         }
     }
 
@@ -82,12 +79,9 @@ public partial class AniClient
             var review = response["Review"];
             return review == null ? null : GqlParser.ParseFromJson<MediaReview>(review);
         }
-        catch (AniException aniException)
+        catch (AniException aniException) when (aniException.StatusCode == HttpStatusCode.NotFound)
         {
-            if (aniException.StatusCode == HttpStatusCode.NotFound)
-                return null;
-
-            throw;
+            return null;
         }
     }
 

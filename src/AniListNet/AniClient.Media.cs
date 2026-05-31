@@ -179,7 +179,15 @@ public partial class AniClient
             Parameters = new GqlParameter[] { new("id", mediaId) },
             Selections = new GqlSelection[] { new("mediaListEntry", GqlParser.ParseToSelections<MediaEntry>()) }
         };
-        var response = await PostRequestAsync(selections);
-        return GqlParser.ParseFromJson<MediaEntry?>(response["Media"]["mediaListEntry"]);
+
+        try
+        {
+            var response = await PostRequestAsync(selections);
+            return GqlParser.ParseFromJson<MediaEntry?>(response["Media"]["mediaListEntry"]);
+        } catch (AniException e) when (e.StatusCode == HttpStatusCode.NotFound)
+        {
+            return null;
+        }
+
     }
 }
