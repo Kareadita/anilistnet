@@ -1,4 +1,5 @@
-﻿using AniListNet.Helpers;
+﻿using System.Net;
+using AniListNet.Helpers;
 using AniListNet.Objects;
 using AniListNet.Parameters;
 
@@ -168,10 +169,11 @@ public partial class AniClient
         );
     }
 
-    /* below is properties only for the authenticated user */
-
     public async Task<MediaEntry?> GetMediaEntryAsync(int mediaId)
     {
+        if (!IsAuthenticated)
+            throw new AniException(HttpStatusCode.Unauthorized, "Client is not authenticated");
+
         var selections = new GqlSelection("Media")
         {
             Parameters = new GqlParameter[] { new("id", mediaId) },

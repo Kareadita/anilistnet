@@ -13,9 +13,19 @@ public partial class AniClient
     private readonly Uri _url = new("https://graphql.anilist.co");
 
     public bool IsAuthenticated { get; private set; }
+    /// <summary>
+    /// The authenticated user. Null when <see cref="IsAuthenticated"/> is false. When true, may still be null
+    /// if not loaded with <see cref="TryAuthenticateAsync"/>
+    /// </summary>
     public User? AuthenticatedUser { get; private set; }
 
     public event EventHandler<AniRateEventArgs>? RateChanged;
+
+    public void SetAuthenticationHeader(string token)
+    {
+        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        IsAuthenticated = true;
+    }
 
     /// <summary>
     /// Sets the authentication header, and loads <see cref="AuthenticatedUser"/> if successful.

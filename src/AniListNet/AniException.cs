@@ -15,4 +15,9 @@ public class AniException : Exception
         ActualResponseBody = actualResponseBody;
         StatusCode = statusCode;
     }
+
+    internal AniException(HttpStatusCode statusCode, string message) : base(message)
+    {
+        StatusCode = statusCode;
+    }
 }
