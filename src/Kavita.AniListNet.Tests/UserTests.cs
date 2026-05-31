@@ -1,0 +1,122 @@
+﻿using Kavita.AniListNet.Objects;
+using NUnit.Framework;
+
+namespace Kavita.AniListNet.Tests;
+
+public class UserTests
+{
+    private readonly AniClient _client = new();
+
+    [Test]
+    public async Task GetUserFollowersTest()
+    {
+        var data = await _client.GetUserFollowersAsync(1);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.Pass(); // TODO: Add proper assertions
+    }
+
+    [Test]
+    public async Task GetUserFollowingsTest()
+    {
+        var data = await _client.GetUserFollowingsAsync(1);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.Pass(); // TODO: Add proper assertions
+    }
+
+    [Test]
+    public async Task GetUserEntriesTest()
+    {
+        var data = await _client.GetUserEntriesAsync(1);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.Pass(); // TODO: Add proper assertions
+    }
+
+    [Test]
+    public async Task GetUserEntryCollectionTest()
+    {
+        var data = await _client.GetUserEntryCollectionAsync(1, MediaType.Anime);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.Pass(); // TODO: Add proper assertions
+    }
+
+    [Test]
+    public async Task GetUserListCollectionTest()
+    {
+        var data = await _client.GetUserListCollectionAsync(1, MediaType.Anime);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.Pass(); // TODO: Add proper assertions
+    }
+
+    [Test]
+    public async Task GetUserAnimeFavoritesTest()
+    {
+        var data = await _client.GetUserAnimeFavoritesAsync(5114158);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.Pass(); // TODO: Add proper assertions
+    }
+
+    [Test]
+    public async Task GetUserMangaFavoritesTest()
+    {
+        var data = await _client.GetUserMangaFavoritesAsync(5114158);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.Pass(); // TODO: Add proper assertions
+    }
+
+    [Test]
+    public async Task GetUserMediaReviewsTest()
+    {
+        var data = await _client.GetUserMediaReviewsAsync(98098);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.Pass(); // TODO: Add proper assertions
+    }
+
+    [Test]
+    public async Task GetUserCharactersFavoritesTest()
+    {
+        var data = await _client.GetUserCharacterFavoritesAsync(5114158);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.Pass(); // TODO: Add proper assertions
+    }
+
+    [Test]
+    public async Task GetUserStaffFavoritesTest()
+    {
+        var data = await _client.GetUserStaffFavoritesAsync(5114158);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.Pass(); // TODO: Add proper assertions
+    }
+
+    [Test]
+    public async Task GetUserStudiosFavoritesTest()
+    {
+        var data = await _client.GetUserStudioFavoritesAsync(5114158);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.Pass(); // TODO: Add proper assertions
+    }
+
+    [Test]
+    public async Task GetUserMediaEntryForMedia()
+    {
+        // Amelia, The Blue Star on That Day
+        var data = await _client.GetUserMediaEntryForMedia(7261496, 127894);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.That(data is not null);
+        Assert.That(data.Score == 10);
+
+        var fakeId = await _client.GetUserMediaEntryForMedia(7261496, 1111111111);
+        Assert.That(fakeId is null);
+    }
+
+    [Test]
+    public async Task GetUserReviewForMedia()
+    {
+        // loryuris, The Blue Star on That Day
+        var data = await _client.GetUserReviewForMedia(7092751, 127894);
+        Console.WriteLine(ObjectDumper.Dump(data));
+        Assert.That(data is not null);
+
+        var fakeId = await _client.GetUserReviewForMedia(7092751, 1111111111);
+        Assert.That(fakeId is null);
+    }
+}

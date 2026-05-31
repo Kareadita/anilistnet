@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Title>AniList.NET</Title>
+        <PackageId>Kavita.AniListNet</PackageId>
+        <AssemblyName>Kavita.AniListNet</AssemblyName>
+        <RootNamespace>Kavita.AniListNet</RootNamespace>
+        <MinVerDefaultPreReleaseIdentifiers>preview</MinVerDefaultPreReleaseIdentifiers>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Authors>Dennise Catolos,Kavita</Authors>
+        <PackageIcon>icon.png</PackageIcon>
+        <Description>A simple .NET API wrapper for AniList!</Description>
+        <PackageProjectUrl>https://github.com/Kareadita/anilistnet/</PackageProjectUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MinVer" Version="7.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\docs\icon.png">
+            <Pack>True</Pack>
+            <Link>icon.png</Link>
+        </None>
+    </ItemGroup>
+</Project>

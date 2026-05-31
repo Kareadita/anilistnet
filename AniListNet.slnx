@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="src/AniListNet/AniListNet.csproj" />
-  <Project Path="src/AniListNet.Tests/AniListNet.Tests.csproj" />
+  <Project Path="src\Kavita.AniListNet.Tests\Kavita.AniListNet.Tests.csproj" />
+  <Project Path="src\Kavita.AniListNet\Kavita.AniListNet.csproj" />
 </Solution>
