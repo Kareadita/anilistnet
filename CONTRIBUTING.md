@@ -14,11 +14,10 @@ Contributions are what make the open source community such an amazing place to l
 4. Restore dependencies: `dotnet restore` (optional)
 5. Test the library: `dotnet test` or use the built-in tests runner in your IDE (recommended) (Tests are pending rewrite, they'll currently fail due to rate limits)
 
+### Pull Requests
+
+Pull requests should follow the template, the body is automaticlly used to generate the changelog.
+
 ### Publishing
 
-To publish a version of the library to nuget, push a tag to the repo, starting with `v` and the version number.
-
-```bash
-git tag vX.Y.Z
-git push origin vX.Y.Z
-```
+To publish a version of the library to nuget, include the version string in your PR title. When merged, will release the new version
