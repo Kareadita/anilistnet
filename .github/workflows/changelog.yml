@@ -32,7 +32,6 @@ jobs:
 
             const entry = [
               `## [${pr.title}] - ${date}`,
-              `_PR #${pr.number} by @${pr.user.login}_`,
               ``,
               pr.body,
               ``,
