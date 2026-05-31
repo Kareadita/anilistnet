@@ -8,16 +8,21 @@
 
     <PropertyGroup>
         <Title>AniList.NET</Title>
-        <PackageId>Kavita.AniListNet</PackageId>
-        <AssemblyName>Kavita.AniListNet</AssemblyName>
-        <RootNamespace>Kavita.AniListNet</RootNamespace>
-        <MinVerDefaultPreReleaseIdentifiers>preview</MinVerDefaultPreReleaseIdentifiers>
+        <PackageIcon>icon.png</PackageIcon>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Authors>Dennise Catolos,Kavita</Authors>
         <Description>A simple .NET API wrapper for AniList!</Description>
         <PackageProjectUrl>https://github.com/Kareadita/anilistnet/</PackageProjectUrl>
+    </PropertyGroup>
+
+    <PropertyGroup>
         <IncludeSymbols>true</IncludeSymbols>
+        <PackageId>Kavita.AniListNet</PackageId>
+        <AssemblyName>Kavita.AniListNet</AssemblyName>
+        <RootNamespace>Kavita.AniListNet</RootNamespace>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <MinVerDefaultPreReleaseIdentifiers>preview</MinVerDefaultPreReleaseIdentifiers>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -33,7 +38,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="..\..\docs\icon.png">
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+        <None Include="..\..\docs\icon.png" Pack="true" PackagePath="\">
             <Pack>True</Pack>
             <Link>icon.png</Link>
         </None>
