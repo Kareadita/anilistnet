@@ -82,7 +82,7 @@ jobs:
             
             for (const [prefix, items] of Object.entries(groups)) {
                 if (items.length > 0) {
-                    body += `# **${prefix}**\n`;
+                    body += `### **${prefix}**\n`;
                     items.forEach(item => {
                         body += `* ${prefix}: ${item}\n`;
                     });
