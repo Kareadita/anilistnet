@@ -14,11 +14,14 @@
         <MinVerDefaultPreReleaseIdentifiers>preview</MinVerDefaultPreReleaseIdentifiers>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Authors>Dennise Catolos,Kavita</Authors>
-        <PackageIcon>icon.png</PackageIcon>
         <Description>A simple .NET API wrapper for AniList!</Description>
         <PackageProjectUrl>https://github.com/Kareadita/anilistnet/</PackageProjectUrl>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <MinVerTagPrefix>v</MinVerTagPrefix>
     </PropertyGroup>
 
     <ItemGroup>
