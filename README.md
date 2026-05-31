@@ -3,18 +3,15 @@
   <span>AniList.NET</span>
 </h1>
 
-[![NuGet Version](https://img.shields.io/nuget/v/AniListNet?logo=nuget)](https://nuget.org/packages/AniListNet)
-[![NuGet Downloads](https://img.shields.io/nuget/dt/AniListNet)](https://nuget.org/packages/AniListNet)
+[![NuGet Version](https://img.shields.io/nuget/v/Kavita.AniListNet?logo=nuget)](https://nuget.org/packages/Kavita.AniListNet)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Kavita.AniListNet)](https://nuget.org/packages/Kavita.AniListNet)
 
-> [!warning]
-> This project is no longer being actively maintained. Occasional commits may only introduce repository structural changes. Use this library at your own risk.
+> [!info]
+> This project is a maintained fork of https://github.com/dentolos19/anilistnet
 
 This project is designed to bring you a simpler way to access and interact with the AniList API. For more information
 about the API itself, visit the [AniList Docs](https://docs.anilist.co).
 
-## ⚒️ Usage
-
-Go check out [the wiki](https://github.com/dentolos19/AniListNet/wiki) to learn how to use this in your project!
 
 ## ⚙️ Features
 
@@ -27,24 +24,13 @@ Go check out [the wiki](https://github.com/dentolos19/AniListNet/wiki) to learn 
 - [x] Get user details like followers, entries, collections, and favorites!
 - [x] Update a user's followings, entries and favorites easily!
 
-### Roadmap
-
-> [!note]
-> This project is no longer being actively maintained.
-
-- [ ] ~~Improve tests (help wanted)~~
-- [ ] ~~Add query functions for notification data~~
-- [ ] ~~Add query/mutations functions for user activities~~
-- [ ] ~~Use same API naming conventions for object properties (target v2)~~
-- [ ] ~~Use generics instead of arrays (target v2)~~
-
 ## 🧑‍💻 Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 ### Prerequisites
 
-- [.NET](https://dot.net) 8+
+- [.NET](https://dot.net) 10+
 
 ### Installation
 
@@ -56,6 +42,7 @@ Contributions are what make the open source community such an amazing place to l
 
 ## 💖 Credits
 
+- Many thanks to dentolos19 for the original project.
 - **Icon** from [AniList](https://anilist.co), edited by me.
 
 ## 📜 License
