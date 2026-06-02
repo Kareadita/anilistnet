@@ -26,8 +26,8 @@ about the API itself, visit the [AniList Docs](https://docs.anilist.co).
 
 ## 💖 Credits
 
-- Many thanks to @dentolos19 for the original project.
-- **Icon** from [AniList](https://anilist.co), edited by me.
+- Many thanks to [@dentolos19](https://github.com/dentolos19/) for the original project.
+- **Icon** from [AniList](https://anilist.co), edited by dentolos19.
 
 ## 📜 License
 
