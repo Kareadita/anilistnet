@@ -46,7 +46,11 @@ public class MediaEntry
     [GqlSelection("completedAt")]
     public Date CompleteDate { get; private set; }
 
-    [GqlSelection("media")] public Media Media { get; private set; }
+    [GqlSelection("media")]
+    public Media Media { get; private set; }
+
+    [GqlSelection("notes")]
+    public string? Notes { get; private set; }
 
     /* below are properties that are not part of the API */
 

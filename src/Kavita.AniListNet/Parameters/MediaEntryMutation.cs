@@ -11,6 +11,7 @@ public class MediaEntryMutation
     public int? VolumeProgress { get; set; }
     public DateTime? StartDate { get; set; }
     public DateTime? CompleteDate { get; set; }
+    public string? Notes { get; set; }
 
     internal IList<GqlParameter> ToParameters()
     {
@@ -37,6 +38,8 @@ public class MediaEntryMutation
                 new("month", CompleteDate.Value.Month),
                 new("day", CompleteDate.Value.Day)
             }));
+        if (!string.IsNullOrEmpty(Notes))
+            parameters.Add(new GqlParameter("notes", Notes));
         return parameters;
     }
 }
