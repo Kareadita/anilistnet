@@ -1,3 +1,11 @@
+## [MediaListEntry Notes (v0.1.1)] - 2026-06-02
+
+### **Added**
+* Added: Added support for (private) notes on MediaEntry
+
+
+
+---
 ## [Include missing ReadME in package & more GA actions (v0.1.0)] - 2026-05-31
 _PR #2 by @Fesaa_
 
