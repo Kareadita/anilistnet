@@ -7,9 +7,8 @@ using Newtonsoft.Json.Linq;
 
 namespace Kavita.AniListNet;
 
-public partial class AniClient
+public partial class AniClient(HttpClient client)
 {
-    private readonly HttpClient _client = new();
     private readonly Uri _url = new("https://graphql.anilist.co");
 
     public bool IsAuthenticated { get; private set; }
@@ -21,9 +20,13 @@ public partial class AniClient
 
     public event EventHandler<AniRateEventArgs>? RateChanged;
 
+    public AniClient() : this(new HttpClient())
+    {
+    }
+
     public void SetAuthenticationHeader(string token)
     {
-        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         IsAuthenticated = true;
     }
 
@@ -35,7 +38,7 @@ public partial class AniClient
     /// <returns></returns>
     public async Task<bool> TryAuthenticateAsync(string token)
     {
-        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         try
         {
             AuthenticatedUser = await GetAuthenticatedUserAsync();
@@ -46,7 +49,7 @@ public partial class AniClient
             if (aniException.StatusCode != HttpStatusCode.Unauthorized)
                 throw;
 
-            _client.DefaultRequestHeaders.Authorization = null;
+            client.DefaultRequestHeaders.Authorization = null;
             IsAuthenticated = false;
             AuthenticatedUser = null;
         }
@@ -62,7 +65,7 @@ public partial class AniClient
         var body = new StringContent(bodyJson.ToString(), Encoding.UTF8, "application/json");
 
         // Send request
-        var response = await _client.PostAsync(_url, body, cancellationToken);
+        var response = await client.PostAsync(_url, body, cancellationToken);
 
         // Parse response
         var responseText = await response.Content.ReadAsStringAsync();
