@@ -1,3 +1,11 @@
+## [Support for custom HttpClients] - 2026-08-15
+
+### **Added**
+* Added: Added support for passing a custom HttpClient
+
+
+
+---
 ## [MediaListEntry Notes (v0.1.1)] - 2026-06-02
 
 ### **Added**
