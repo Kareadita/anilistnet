@@ -64,10 +64,23 @@ public partial class AniClient(HttpClient client)
         var bodyText = bodyJson["query"]!.ToObject<string>();
         var body = new StringContent(bodyJson.ToString(), Encoding.UTF8, "application/json");
 
-        // Send request
         var response = await client.PostAsync(_url, body, cancellationToken);
 
-        // Parse response
+        var retryAfter = GetHeaderInt("Retry-After");
+        var rateLimit = GetHeaderInt("X-RateLimit-Limit");
+        var rateRemaining = GetHeaderInt("X-RateLimit-Remaining");
+        var rateReset = GetHeaderInt("X-RateLimit-Reset");
+
+        if (rateLimit.HasValue && rateRemaining.HasValue)
+        {
+            RateChanged?.Invoke(this, new AniRateEventArgs(
+                rateLimit.Value,
+                rateRemaining.Value,
+                retryAfter,
+                rateReset
+            ));
+        }
+
         var responseText = await response.Content.ReadAsStringAsync();
         var responseJson = JObject.Parse(responseText);
 
@@ -75,33 +88,24 @@ public partial class AniClient(HttpClient client)
             throw new AniException
             (
                 responseJson["errors"]!.First!["message"]!.ToString(),
-                bodyText!,
+                bodyText ?? string.Empty,
                 responseText,
                 response.StatusCode
             );
 
-        // Check rate limit
-        response.Headers.TryGetValues("Retry-After", out var retryAfterValues);
-        response.Headers.TryGetValues("X-RateLimit-Limit", out var rateLimitValues);
-        response.Headers.TryGetValues("X-RateLimit-Remaining", out var rateRemainingValues);
-        response.Headers.TryGetValues("X-RateLimit-Reset", out var rateResetValues);
-
-        var retryAfterString = retryAfterValues?.FirstOrDefault();
-        var rateLimitString = rateLimitValues?.FirstOrDefault();
-        var rateRemainingString = rateRemainingValues?.FirstOrDefault();
-        var rateResetString = rateResetValues?.FirstOrDefault();
-
-        var retryAfterValidated = int.TryParse(retryAfterString, out var retryAfter);
-        var rateLimitValidated = int.TryParse(rateLimitString, out var rateLimit);
-        var rateRemainingValidated = int.TryParse(rateRemainingString, out var rateRemaining);
-        var rateResetValidated = int.TryParse(rateResetString, out var rateReset);
-
-        if (retryAfterValidated && rateLimitValidated && rateRemainingValidated && rateResetValidated)
-            RateChanged?.Invoke(this, new AniRateEventArgs(rateLimit, rateRemaining, retryAfter, rateReset));
-        else if (rateLimitValidated && rateRemainingValidated)
-            RateChanged?.Invoke(this, new AniRateEventArgs(rateLimit, rateRemaining));
+        if (responseJson["errors"] != null)
+        {
+            var errorMessage = responseJson["errors"]!.First!["message"]?.ToString() ?? "Unknown GraphQL error";
+            throw new AniException(errorMessage, bodyText ?? string.Empty, responseText, response.StatusCode);
+        }
 
         return responseJson["data"]!;
+
+        int? GetHeaderInt(string headerName)
+        {
+            return response.Headers.TryGetValues(headerName, out var values)
+                   && int.TryParse(values.FirstOrDefault(), out var val) ? val : null;
+        }
     }
 
     private async Task<JToken> GetSingleDataAsync(params GqlSelection[] path)
