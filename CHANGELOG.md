@@ -1,3 +1,10 @@
+## [Fix rate limit events not being fired when requests fail] - 2026-08-25
+
+# Fixed
+
+- Fixed: Fixed RateChanged events not being fired when a request fails
+
+---
 ## [Support for custom HttpClients] - 2026-08-15
 
 ### **Added**
